@@ -83,6 +83,7 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif sess.employee.emp_position == 1:
         keyboard = [['Tasks', 'Customer info'],
                     ['Change task executor', 'Make employee report'],
+                    ['Add task']
                     ['Done']]
     else:
         keyboard = [['Tasks', 'Customer info'], 
@@ -126,7 +127,7 @@ async def get_customer_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def print_contacts(update: Update, context: ContextTypes.DEFAULT_TYPE):
     sess: Session = context.user_data['sess']
-    customer = context.user_data['sustomer']
+    customer = context.user_data['customer']
 
     contacts = sess.get_contacts_info(customer.customer_id)
     keyboard = [['Search another customer', 'Main menu'], ['Done']]
@@ -843,16 +844,16 @@ async def done(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def is_date(text: str) -> bool:
-    y, m, d = text.split('-')
     try:
+        y, m, d = text.split('-')
         date = datetime(int(y), int(m), int(d))
         return True
     except:
         return False
 
 def is_closing_date(text: str) -> bool:
-    y, m, d = text.split('-')
     try:
+        y, m, d = text.split('-')
         date = datetime(int(y), int(m), int(d))
         now = datetime.now()
         if date < now:
