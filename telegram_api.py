@@ -120,7 +120,7 @@ async def get_customer_info(update: Update, context: ContextTypes.DEFAULT_TYPE):
     keyboard = [['Print contacts', 'Main menu'],['Done']]
     markup = ReplyKeyboardMarkup(keyboard, one_time_keyboard=True, resize_keyboard=True)
     await update.message.reply_markdown_v2(str(customer), reply_markup=markup)
-    sess['customer'] = customer
+    context.user_data['customer'] = customer
     return CUSTOMER_FOUND
 
 
